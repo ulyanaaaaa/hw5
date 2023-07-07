@@ -117,15 +117,52 @@ int InputNum(string message)
     return int.Parse(Console.ReadLine()!);
 }
 
-int[] CreateArray(int size)
+double[] CreateArray(int size)
 {
     return new double[size];
 }
 
-void FillArray(double[] array, int min, int max)
+void FillArray(double[] array)
 {
-    for (int i = 0; i < array.Length; i++)
     Random rnd = new Random();
-    double value = Random.Next(min, max + 1);
-    array[i] = value;
+    for (int i = 0; i < array.Length; i++)
+        array[i] = rnd.NextDouble();
 }
+
+string PrintArray(double[] array)
+{
+    string res = String.Empty;
+    for (int i = 0; i < array.Length; i++)
+        res += array[i] + " ";
+    return res;
+}
+
+double ResultMaxMin(double[] myArray)
+{
+    double min = myArray[0];
+    double max = myArray[0];
+    int i = 1;
+    while (i < myArray.Length)
+    {
+        if (max < myArray[i])
+            max = myArray[i];
+        if (min > myArray[i])
+            min = myArray[i];
+        i = i + 1;
+    }
+    double res = max - min;
+    return res;
+}
+
+int size = InputNum("Enter array size: ");
+
+double[] myArray = CreateArray(size);
+
+FillArray(myArray);
+
+string txt = PrintArray(myArray);
+Console.WriteLine(txt);
+
+double result = ResultMaxMin(myArray);
+result = Math.Round(result, 2);
+Console.WriteLine(result);
